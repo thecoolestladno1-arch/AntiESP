@@ -1,0 +1,165 @@
+# AntiESP Configuration
+# Paper 1.21.11 Compatible
+
+# Global detection settings
+detection:
+  enabled: true
+  radius: 64.0
+  check-interval: 1
+
+# Entity ESP Detection
+# Detects: invisible entity access, impossible line-of-sight, entity clustering
+entity-esp:
+  enabled: true
+  
+  # Number of ticks to observe before flagging invisible entity interaction
+  invisible-threshold: 3
+  
+  # Threshold for impossible line-of-sight (0.0 - 1.0)
+  # 0.85 = 85% of monsters visible through walls = suspicious
+  los-threshold: 0.85
+  
+  # Minimum entities to trigger clustering detection
+  cluster-detection-min: 5
+
+# Block ESP Detection
+# Detects: impossible mining patterns, hidden block breaking, unnatural ore discovery
+block-esp:
+  enabled: true
+  
+  # Mining efficiency threshold (0.0 - 1.0)
+  # 0.75 = Finding 75% valuable blocks = suspicious (humans get 30-50%)
+  efficiency-threshold: 0.75
+  
+  # Number of ticks to analyze mining patterns
+  mining-window: 200
+  
+  # Minimum blocks to break before analyzing efficiency
+  min-blocks-sample: 10
+  
+  # Optimal path detection - average distance between ore blocks
+  # Below 1.3 blocks = suspicious (natural mining = 1-3 blocks)
+  optimal-path-threshold: 1.3
+  
+  # Detection radius for mining analysis
+  detection-radius: 48.0
+
+# Chest/Container ESP Detection
+# Detects: hidden container access, impossible loot pathfinding, unnatural discovery
+chest-esp:
+  enabled: true
+  
+  # Minimum time between container interactions (ticks)
+  # Less than this = unnaturally fast clicking
+  speed-threshold: 15
+  
+  # Container interaction radius
+  interaction-distance: 48.0
+  
+  # Render distance - accessing containers beyond this = suspicious
+  render-distance: 48
+  
+  # Maximum average distance between container visits
+  # Low distance = artificial pathfinding
+  max-avg-distance: 8.0
+
+# Player ESP Detection
+# Detects: looking at hidden players, perfect tracking, wallhacking ESP
+player-esp:
+  enabled: true
+  
+  # Percentage of nearby players that must be tracked to flag
+  # 0.8 = 80% = suspicious (humans don't track all players)
+  tracking-threshold: 0.8
+  
+  # Tick interval for sight checks
+  sight-check-interval: 10
+  
+  # Maximum angle to consider "looking at" player (degrees)
+  look-tolerance: 20
+  
+  # Detection radius for player tracking
+  detection-radius: 100.0
+
+# Punishment Settings
+punishment:
+  # Enable automatic punishment
+  kick-on-violation: true
+  
+  # Violation count for first kick
+  first-kick: 1
+  
+  # Violation count for second warning kick
+  second-kick: 3
+  
+  # Violation count for permanent ban
+  ban: 3
+  
+  # Broadcast to all players when someone is banned
+  broadcast-on-ban: true
+  
+  # Kick message
+  kick-message: "§cESP hack detected. Stop cheating!"
+  
+  # Ban message
+  ban-message: "§cPermanent ban for ESP hacking."
+
+# Performance Settings
+performance:
+  # Use async processing for detection (recommended)
+  # Reduces lag on main thread
+  use-async: true
+  
+  # Cleanup interval (ticks) - remove old data
+  # Every 600 ticks = every 30 seconds
+  cleanup-interval: 600
+  
+  # Maximum blocks to track per player
+  max-tracked-blocks: 1000
+  
+  # Maximum entities to track per player
+  max-tracked-entities: 500
+  
+  # Maximum containers to track per player
+  max-tracked-containers: 200
+
+# ViaVersion Support
+# Works with players on different protocol versions
+viaversion:
+  enabled: true
+  
+  # Use version-specific detection thresholds
+  # Different Minecraft versions have different packet structures
+  version-specific-thresholds: true
+  
+  # Adjust thresholds for older versions
+  # They may have slightly different cheating patterns
+  legacy-support: true
+
+# Logging
+logging:
+  # Log all violations to file
+  log-violations: true
+  
+  # Log file name
+  log-file: "antiesp-log.txt"
+  
+  # Include violation details in logs
+  detailed-logging: true
+  
+  # Send violations to console
+  console-output: true
+
+# Advanced Settings (Don't change unless you know what you're doing)
+advanced:
+  # Enable debug mode (verbose logging)
+  debug: false
+  
+  # Recalculate detection parameters
+  recalculate-interval: 300
+  
+  # Maximum memory usage for tracking (MB)
+  max-memory: 256
+  
+  # Statistical analysis mode
+  enable-stats: true
